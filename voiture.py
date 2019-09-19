@@ -34,18 +34,28 @@ class Voiture(Vehicule):
 
     def klaxonner(self):
         print("pouët pouët")
-    
+
+class BoiteDeVitesseError(Exception):
+    pass
+
+class RetrogradeError(BoiteDeVitesseError):
+    pass
 
 class BoiteDeVitesse:
     
     def __init__(self, rapports=6):
+        if 1 > rapports > 21:
+            raise ValueError("Le nombre de rapports doit être compris entre 1 et 21 !")
+
         self.rapports = rapports
         self.rapport_courant = 0
         
     def monter_rapport(self, inc_rapport=1):
-        if inc_rapport in (1, 2):
-            self.rapport_courant = min(self.rapports, 
-                                       self.rapport_courant + inc_rapport)
+        if inc_rapport not in (1, 2):
+            raise BoiteDeVitesseError("Il n'a pas possible de monter de plus de deux rapports")
+
+        self.rapport_courant = min(self.rapports, 
+                                   self.rapport_courant + inc_rapport)
     
     def retrograder(self, dec_rapport=1):
         if dec_rapport in (1, 2):
@@ -63,3 +73,10 @@ class BoiteDeVitesse:
         if self.au_point_mort:
             self.rapport_courant = -1
             
+    def __eq__(self, bdv):
+        if not isinstance(bdv, BoiteDeVitesse):
+            return False
+        return self.rapports == bdv.rapports
+            
+    def __str__(self):
+        return f"Boite de vitesse avec {self.rapports} rapports"
