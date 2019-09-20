@@ -1,0 +1,8 @@
+certifi==2019.9.11
+chardet==3.0.4
+falcon==2.0.0
+hug==2.6.0
+idna==2.8
+requests==2.22.0
+uptime==3.0.1
+urllib3==1.25.5

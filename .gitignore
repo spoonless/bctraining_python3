@@ -1,0 +1,6 @@
+\.project
+\.settings
+\.pydevproject
+Pipfile
+Pipfile.lock
+venv
